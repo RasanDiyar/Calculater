@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<body>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    #calculator {
+      width: 280px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      margin-bottom: 10px;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="button"] {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      margin: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    input[type="button"]:hover {
+      background-color: #45a049;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .row:last-child {
+      margin-top: 10px;
+    }
+
+    .row button:nth-child(4),
+    .row:last-child button:nth-child(2) {
+      background-color: #f44336;
+    }
+
+    .row button:nth-child(4):hover,
+    .row:last-child button:nth-child(2):hover {
+      background-color: #e53935;
+    }
+
+    .icon-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .icon-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculator</h1>
+  <div id="calculator">
+    <input type="text" id="result" disabled>
+    <div class="row">
+      <input type="button" value="7" onclick="addToResult('7')">
+      <input type="button" value="8" onclick="addToResult('8')">
+      <input type="button" value="9" onclick="addToResult('9')">
+      <input type="button" value="+" onclick="addToResult('+')">
+    </div>
+    <div class="row">
+      <input type="button" value="4" onclick="addToResult('4')">
+      <input type="button" value="5" onclick="addToResult('5')">
+      <input type="button" value="6" onclick="addToResult('6')">
+      <input type="button" value="-" onclick="addToResult('-')">
+    </div>
+    <div class="row">
+      <input type="button" value="1" onclick="addToResult('1')">
+      <input type="button" value="2" onclick="addToResult('2')">
+      <input type="button" value="3" onclick="addToResult('3')">
+      <input type="button" value="x" onclick="addToResult('*')">
+    </div>
+    <div class="row">
+      <input type="button" value="0" onclick="addToResult('0')">
+      <input type="button" value="." onclick="addToResult('.')">
+      <input type="button" value="=" onclick="calculate()">
+      <input type="button" value="/" onclick="addToResult('/')">
+    </div>
+    <div class="row">
+      <input type="button" value="AC" onclick="clearResult()">
+      <button id="eraseButton" onclick="eraseCharacter()" class="icon-button"><i class="fas fa-backspace"></i></button>
+      <input type="button" value="%" onclick="calculatePercentage()">
+      <button id="copyButton" onclick="copyResult()" class="icon-button">C</button>
+    </div>
+  </div>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    // Function to add characters to the result
+    function addToResult(char) {
+      document.getElementById("result").value += char;
+    }
+
+    // Function to clear the result
+    function clearResult() {
+      document.getElementById("result").value = "";
+    }
+
+    // Function to erase the last character
+    function eraseCharacter() {
+      var currentResult = document.getElementById("result").value;
+      document.getElementById("result").value = currentResult.slice(0, -1);
+    }
+
+    // Function to calculate the percentage
+    function calculatePercentage() {
+      var currentResult = document.getElementById("result").value;
+      var percentage = parseFloat(currentResult) / 100;
+      document.getElementById("result").value = percentage;
+    }
+
+    // Function to calculate the result
+    function calculate() {
+      try {
+        const result = eval(document.getElementById("result").value);
+        document.getElementById("result").value = result;
+      } catch (error) {
+        document.getElementById("result").value = "Error";
+      }
+    }
+
+    // Function to copy the result to the clipboard
+    function copyResult() {
+      var result = document.getElementById("result");
+      result.select();
+      result.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Result copied to clipboard: " + result.value);
+    }
+  </script>
+</body>
+</html>
